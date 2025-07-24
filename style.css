@@ -15,7 +15,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Manrope', sans-serif;
   line-height: 1.6;
   color: var(--text-light);
   background: radial-gradient(ellipse at bottom left, #1a1a1d 0%, #0f0f0f 100%);
@@ -70,15 +70,14 @@ a:hover {
 .profile-image {
   width: 240px;
   max-width: 100%;
-  border-radius: 0; /* або просто видали рядок */
-  box-shadow: none; /* або за бажанням щось світле */
+  border-radius: 0;
+  box-shadow: none;
   transition: transform 0.3s ease;
 }
 
 .profile-image:hover {
   transform: scale(1.05);
 }
-
 
 @media screen and (max-width: 768px) {
   .profile-photo {
@@ -126,6 +125,7 @@ a:hover {
   text-align: center;
   transition: 0.6s;
   box-shadow: 0 0 0 transparent;
+  cursor: pointer;
 }
 .project-card:hover {
   transform: scale(1.03);
@@ -217,24 +217,22 @@ footer {
 
 .tab-btn {
   padding: 8px 20px;
-  background: #1e1e1e;
+  background: transparent;
   color: var(--text-light);
-  border: 1px solid #333;
-  border-radius: 6px;
+  border: none;
   font-weight: 500;
-  transition: 0.3s;
+  border-radius: 6px;
+  transition: color 0.3s ease;
   cursor: pointer;
 }
 
 .tab-btn:hover {
-  background: #2a2a2a;
+  color: var(--accent-light);
 }
 
 .tab-btn.active {
-  background: var(--accent);
-  color: #111;
-  border: 1px solid var(--accent-light);
-  box-shadow: 0 0 8px rgba(252, 163, 17, 0.4);
+  color: var(--accent);
+  box-shadow: none;
 }
 
 .skill-tags {
@@ -287,7 +285,7 @@ footer {
 
 .subtitle {
   font-size: 20px;
-  margin-bottom: 12px; /* було 8px */
+  margin-bottom: 12px;
   color: var(--text-muted);
 }
 
@@ -305,3 +303,192 @@ footer {
   margin-bottom: 30px;
 }
 
+body.blurred > *:not(.modal-overlay) {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #1f1f1f, #111111);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 30px 35px;
+  color: var(--text-light);
+  width: 90%;
+  max-width: 650px;
+  box-shadow:
+    0 0 0 1px #fca31150,
+    0 0 25px #fca31180,
+    0 0 60px #fca31140;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeInModal 0.35s ease-in-out;
+  backdrop-filter: blur(8px);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 24px;
+  color: var(--accent-light);
+  letter-spacing: 0.5px;
+}
+
+.modal-content p {
+  margin: 10px 0;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.modal-content p strong {
+  color: var(--accent);
+}
+
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--accent-light);
+  transition: color 0.3s;
+}
+.close-modal:hover {
+  color: var(--accent);
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.modal-gallery img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #333;
+  transition: transform 0.3s ease;
+}
+
+.modal-gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px var(--accent-light);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox-container {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#lightboxImg {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 0 20px var(--accent);
+}
+
+/* Стрілки */
+.lightbox-nav {
+  font-size: 30px;
+  color: var(--accent);
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  transition: 0.3s;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+.lightbox-nav:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.lightbox-nav.prev {
+  position: absolute;
+  left: -50px;
+}
+
+.lightbox-nav.next {
+  position: absolute;
+  right: -50px;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  font-size: 28px;
+  color: var(--accent);
+  cursor: pointer;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 8px 12px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.close-lightbox:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
