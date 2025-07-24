@@ -24,6 +24,13 @@ body {
   opacity: 0;
 }
 
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+}
+
+
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -52,11 +59,6 @@ a:hover {
   font-size: 48px;
   margin-bottom: 10px;
 }
-@media screen and (max-width: 768px) {
-  .hero h1 {
-    font-size: 32px;
-  }
-}
 .hero p {
   font-size: 20px;
   margin-bottom: 10px;
@@ -70,17 +72,17 @@ a:hover {
 .profile-image {
   width: 240px;
   max-width: 100%;
-  border-radius: 0;
-  box-shadow: none;
   transition: transform 0.3s ease;
 }
-
 .profile-image:hover {
   transform: scale(1.05);
 }
 
 @media screen and (max-width: 768px) {
-  .profile-photo {
+  .hero h1 {
+    font-size: 32px;
+  }
+  .profile-image {
     width: 100px;
     height: 100px;
   }
@@ -211,10 +213,8 @@ footer {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
-  margin-bottom: 25px;
+  margin: 20px 0 25px;
 }
-
 .tab-btn {
   padding: 8px 20px;
   background: transparent;
@@ -225,14 +225,11 @@ footer {
   transition: color 0.3s ease;
   cursor: pointer;
 }
-
 .tab-btn:hover {
   color: var(--accent-light);
 }
-
 .tab-btn.active {
   color: var(--accent);
-  box-shadow: none;
 }
 
 .skill-tags {
@@ -254,6 +251,7 @@ footer {
   background: var(--accent);
   color: #111;
 }
+
 .tab-content {
   display: none;
 }
@@ -261,48 +259,7 @@ footer {
   display: block;
 }
 
-/* === RESPONSIVE === */
-@media screen and (max-width: 768px) {
-  .projects .project-list {
-    flex-direction: column;
-  }
-  .sidebar {
-    display: none;
-  }
-  .hero-buttons .btn {
-    display: block;
-    margin: 10px auto;
-    width: 60%;
-    text-align: center;
-  }
-  .project-card {
-    flex: 1 1 100%;
-  }
-  .about, .projects, .contact, .skills {
-    padding: 0 15px;
-  }
-}
-
-.subtitle {
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: var(--text-muted);
-}
-
-.availability-line {
-  font-size: 17px;
-  font-weight: 400;
-  color: var(--accent-light);
-  margin-bottom: 30px;
-  line-height: 1.6;
-}
-
-.image-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
+/* === MODAL === */
 body.blurred > *:not(.modal-overlay) {
   filter: blur(6px);
   pointer-events: none;
@@ -332,6 +289,9 @@ body.blurred > *:not(.modal-overlay) {
   color: var(--text-light);
   width: 90%;
   max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   box-shadow:
     0 0 0 1px #fca31150,
     0 0 25px #fca31180,
@@ -363,7 +323,6 @@ body.blurred > *:not(.modal-overlay) {
   color: var(--accent);
 }
 
-
 .close-modal {
   position: absolute;
   top: 10px;
@@ -373,21 +332,24 @@ body.blurred > *:not(.modal-overlay) {
   color: var(--accent-light);
   transition: color 0.3s;
 }
+
 .close-modal:hover {
   color: var(--accent);
 }
 
-@keyframes fadeIn {
+@keyframes fadeInModal {
   from {
-    transform: translateY(-10px);
     opacity: 0;
+    transform: translate(-50%, -40%);
   }
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }
 
+
+/* === MODAL GALLERY === */
 .modal-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -409,15 +371,17 @@ body.blurred > *:not(.modal-overlay) {
   box-shadow: 0 0 10px var(--accent-light);
 }
 
+/* === LIGHTBOX === */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  overflow: hidden;
 }
 
 .lightbox.hidden {
@@ -431,6 +395,7 @@ body.blurred > *:not(.modal-overlay) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: visible;
 }
 
 .lightbox-wrapper {
@@ -438,52 +403,55 @@ body.blurred > *:not(.modal-overlay) {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 100%;
   max-width: 100%;
+  max-height: 100%;
+  overflow: visible;
 }
 
 #lightboxImg {
+  display: block;
+  width: auto;
+  height: auto;
   max-width: 100%;
   max-height: 80vh;
-  border-radius: 10px;
   object-fit: contain;
+  border-radius: 10px;
   box-shadow: 0 0 20px var(--accent);
 }
 
-/* Стрілки */
+/* === Навігація та закриття === */
 .lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 30px;
   color: var(--accent);
   cursor: pointer;
   user-select: none;
   padding: 10px;
   transition: 0.3s;
-  z-index: 10;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
 }
 .lightbox-nav:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
-
 .lightbox-nav.prev {
-  position: absolute;
   left: -50px;
 }
-
 .lightbox-nav.next {
-  position: absolute;
   right: -50px;
 }
 
 .close-lightbox {
   position: absolute;
-  top: -35px;
-  right: -35px;
-  font-size: 28px;
+  top: -30px;       /* вище зображення */
+  right: -30px;     /* правіше зображення */
+  font-size: 24px;
   color: var(--accent);
   cursor: pointer;
-  z-index: 10;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.4);
   padding: 8px 12px;
   border-radius: 50%;
@@ -491,4 +459,56 @@ body.blurred > *:not(.modal-overlay) {
 }
 .close-lightbox:hover {
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.close-lightbox:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* === RESPONSIVE === */
+@media screen and (max-width: 600px) {
+  .modal-content {
+    width: 95vw;
+    max-width: 95vw;
+    padding: 18px;
+    top: 8%;
+    transform: translate(-50%, 0);
+  }
+
+  .modal-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-gallery img {
+    height: auto;
+  }
+
+  .lightbox-wrapper {
+    max-width: 90vw;
+    max-height: 70vh;
+  }
+
+  #lightboxImg {
+    max-width: 90vw;
+    max-height: 70vh;
+  }
+
+  .lightbox-nav {
+    font-size: 24px;
+    padding: 6px 12px;
+  }
+
+  .lightbox-nav.prev {
+    left: 10px;
+  }
+
+  .lightbox-nav.next {
+    right: 10px;
+  }
+
+  .close-lightbox {
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+  }
 }
