@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   AOS.init();
 
-  // Scroll smooth
+  // ===== SCROLL SMOOTH =====
   document.querySelectorAll('.scroll-link').forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Skills tab logic
+  // ===== SKILLS TABS =====
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -26,45 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== MODAL LOGIC (Project 1) ===== //
-  const modal = document.getElementById("modal");
-  const closeModalBtn = document.getElementById("closeModal");
-  const card = document.getElementById("project1-card");
-
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightboxImg");
-
-  function closeModal() {
-    modal.classList.remove("active");
-    document.body.classList.remove("modal-open");
-
-    if (lightbox) lightbox.classList.add("hidden");
-    if (lightboxImg) lightboxImg.src = "";
-  }
-
-  card.onclick = () => {
-    modal.classList.add("active");
-    document.body.classList.add("modal-open");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  closeModalBtn.onclick = closeModal;
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  // ===== MODAL LOGIC (Projects 2 & 3) ===== //
+  // ===== MODAL LOGIC FOR PROJECTS =====
   const modals = {
-    project2: document.getElementById("modal2"),
-    project3: document.getElementById("modal3"),
+    habitflow: document.getElementById("modal-habitflow"),
+    budgetly: document.getElementById("modal-budgetly"),
+    talkmate: document.getElementById("modal-talkmate"),
   };
 
   const projectCards = {
-    project2: document.getElementById("project2-card"),
-    project3: document.getElementById("project3-card"),
+    habitflow: document.getElementById("project1-card"),
+    budgetly: document.getElementById("project2-card"),
+    talkmate: document.getElementById("project3-card"),
   };
 
   Object.keys(projectCards).forEach(id => {
@@ -78,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      // Закриття по кнопці ❌
       const closeBtn = modal.querySelector(".close-modal");
       if (closeBtn) {
         closeBtn.addEventListener("click", () => {
@@ -87,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // Клік поза вікном — закрити
       modal.addEventListener("click", (e) => {
         if (e.target === modal) {
           modal.classList.remove("active");
@@ -97,7 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== LIGHTBOX LOGIC ===== //
+  // ===== LIGHTBOX LOGIC =====
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
   const closeLightbox = document.getElementById("closeLightbox");
   const prevImg = document.getElementById("prevImg");
   const nextImg = document.getElementById("nextImg");
@@ -113,45 +85,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function showLightbox(src) {
-    if (lightboxImg) {
-      lightboxImg.src = src;
-    }
-    if (lightbox) {
-      lightbox.classList.remove("hidden");
-    }
+    if (lightboxImg) lightboxImg.src = src;
+    if (lightbox) lightbox.classList.remove("hidden");
     document.body.classList.add("modal-open");
   }
 
   function hideLightbox() {
-    if (lightbox) {
-      lightbox.classList.add("hidden");
-    }
+    if (lightbox) lightbox.classList.add("hidden");
     document.body.classList.remove("modal-open");
   }
 
   function showPrevImg() {
     currentImgIndex = (currentImgIndex - 1 + screenshots.length) % screenshots.length;
-    if (lightboxImg) {
-      lightboxImg.src = screenshots[currentImgIndex].src;
-    }
+    if (lightboxImg) lightboxImg.src = screenshots[currentImgIndex].src;
   }
 
   function showNextImg() {
     currentImgIndex = (currentImgIndex + 1) % screenshots.length;
-    if (lightboxImg) {
-      lightboxImg.src = screenshots[currentImgIndex].src;
-    }
+    if (lightboxImg) lightboxImg.src = screenshots[currentImgIndex].src;
   }
 
   if (closeLightbox) closeLightbox.addEventListener("click", hideLightbox);
   if (prevImg) prevImg.addEventListener("click", showPrevImg);
   if (nextImg) nextImg.addEventListener("click", showNextImg);
 
+  // ===== GLOBAL ESC KEY HANDLER =====
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      closeModal();
+      Object.values(modals).forEach(modal => modal.classList.remove("active"));
+      document.body.classList.remove("modal-open");
       hideLightbox();
-      Object.values(modals).forEach(m => m.classList.remove("active"));
     }
   });
 });

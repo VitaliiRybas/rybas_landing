@@ -424,45 +424,53 @@ body.blurred > *:not(.modal-overlay) {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 30px;
+  font-size: 20px;
   color: var(--accent);
   cursor: pointer;
   user-select: none;
-  padding: 10px;
-  transition: 0.3s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.2);
 }
 .lightbox-nav:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 165, 0, 0.2);
+  transform: translateY(-50%) scale(1.1);
 }
 .lightbox-nav.prev {
-  left: -50px;
+  left: -40px;
 }
 .lightbox-nav.next {
-  right: -50px;
+  right: -40px;
 }
 
 .close-lightbox {
   position: absolute;
-  top: -30px;       /* вище зображення */
-  right: -30px;     /* правіше зображення */
-  font-size: 24px;
+  top: -20px;
+  right: -20px;
+  font-size: 18px;
   color: var(--accent);
   cursor: pointer;
   z-index: 100;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 8px 12px;
   border-radius: 50%;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.2);
 }
 .close-lightbox:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.close-lightbox:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 165, 0, 0.2);
+  transform: scale(1.1);
 }
 
 /* === RESPONSIVE === */
@@ -494,8 +502,9 @@ body.blurred > *:not(.modal-overlay) {
   }
 
   .lightbox-nav {
-    font-size: 24px;
-    padding: 6px 12px;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
   }
 
   .lightbox-nav.prev {
@@ -509,6 +518,65 @@ body.blurred > *:not(.modal-overlay) {
   .close-lightbox {
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
   }
+}
+
+.contact-card {
+  background-color: #111;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.08);
+  max-width: 600px;
+  margin: 0 auto 60px auto;
+  
+}
+
+.contact-card h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.contact-item i {
+  color: #ffa500;
+}
+
+.contact-item a {
+  color: #eee;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-item a:hover {
+  color: #ffa500;
+}
+
+.contact-socials {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 10px;
+}
+
+.contact-socials a {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.contact-socials a:hover {
+  color: #ffa500;
 }
