@@ -31,9 +31,7 @@ body {
 }
 
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
 
 a {
@@ -41,7 +39,6 @@ a {
   text-decoration: none;
   transition: 0.3s;
 }
-
 a:hover {
   color: var(--accent-light);
 }
@@ -51,31 +48,57 @@ a:hover {
   text-align: center;
   padding: 100px 20px 60px;
 }
-
 .hero h1 {
   font-size: 48px;
   margin-bottom: 10px;
 }
-
+@media screen and (max-width: 768px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+}
 .hero p {
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   color: var(--text-muted);
 }
+.status {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: var(--accent-light);
+}
+.profile-image {
+  width: 240px;
+  max-width: 100%;
+  border-radius: 0; /* або просто видали рядок */
+  box-shadow: none; /* або за бажанням щось світле */
+  transition: transform 0.3s ease;
+}
 
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+
+@media screen and (max-width: 768px) {
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* === HERO BUTTONS === */
 .hero-buttons .btn {
   display: inline-block;
   padding: 10px 25px;
-  margin: 0 10px;
+  margin: 0 14px;
   border: 1px solid var(--accent);
   color: var(--accent);
   border-radius: 4px;
   font-weight: 500;
   background: transparent;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  cursor: pointer;
 }
-
 .hero-buttons .btn:hover {
   background-color: var(--accent);
   color: #1a1a1d;
@@ -83,9 +106,7 @@ a:hover {
 }
 
 /* === SECTIONS === */
-.about,
-.projects,
-.contact {
+.about, .projects, .contact, .skills {
   max-width: 900px;
   margin: 60px auto;
   padding: 0 20px;
@@ -97,7 +118,6 @@ a:hover {
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .project-card {
   background-color: #292929;
   padding: 15px;
@@ -107,12 +127,10 @@ a:hover {
   transition: 0.6s;
   box-shadow: 0 0 0 transparent;
 }
-
 .project-card:hover {
   transform: scale(1.03);
   box-shadow: 0 0 20px var(--accent);
 }
-
 .project-card img {
   width: 100%;
   border-radius: 6px;
@@ -126,7 +144,6 @@ a:hover {
   gap: 10px;
   margin-bottom: 20px;
 }
-
 .contact input,
 .contact textarea {
   padding: 10px;
@@ -136,13 +153,11 @@ a:hover {
   border-radius: 4px;
   transition: 0.3s ease;
 }
-
 .contact input:focus,
 .contact textarea:focus {
   outline: none;
   box-shadow: 0 0 5px var(--accent);
 }
-
 .contact button {
   padding: 10px;
   background: var(--accent);
@@ -151,13 +166,10 @@ a:hover {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
-  font-weight: 600;
 }
-
 .contact button:hover {
   opacity: 0.9;
 }
-
 .contact-info p {
   margin: 5px 0;
 }
@@ -181,16 +193,74 @@ footer {
   gap: 15px;
   z-index: 1000;
 }
-
 .sidebar a {
   color: var(--accent);
   font-size: 20px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
 .sidebar a:hover {
   transform: scale(1.3);
   opacity: 0.9;
+}
+
+/* === SKILLS === */
+.skills {
+  text-align: center;
+}
+.skill-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  padding: 8px 20px;
+  background: #1e1e1e;
+  color: var(--text-light);
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  background: #2a2a2a;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: #111;
+  border: 1px solid var(--accent-light);
+  box-shadow: 0 0 8px rgba(252, 163, 17, 0.4);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.skill-tags span {
+  padding: 8px 14px;
+  background: #2b2b2b;
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--text-light);
+  border: 1px solid #444;
+  transition: 0.3s;
+}
+.skill-tags span:hover {
+  background: var(--accent);
+  color: #111;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
 }
 
 /* === RESPONSIVE === */
@@ -198,25 +268,40 @@ footer {
   .projects .project-list {
     flex-direction: column;
   }
-
   .sidebar {
     display: none;
   }
-
   .hero-buttons .btn {
     display: block;
     margin: 10px auto;
     width: 60%;
     text-align: center;
   }
-
   .project-card {
     flex: 1 1 100%;
   }
-
-  .about,
-  .projects,
-  .contact {
+  .about, .projects, .contact, .skills {
     padding: 0 15px;
   }
 }
+
+.subtitle {
+  font-size: 20px;
+  margin-bottom: 12px; /* було 8px */
+  color: var(--text-muted);
+}
+
+.availability-line {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--accent-light);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
